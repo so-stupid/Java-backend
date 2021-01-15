@@ -30,7 +30,7 @@ public class WorkerService {
         // Проверяем корректность группы
         TypeWorker typeWorker = this.entityManager.find(TypeWorker.class, worker.getTypeWorker().getId());
         if (typeWorker == null) {
-            throw new Exception("group is null");
+            throw new Exception("Prof is null");
         }
         worker.setTypeWorker(typeWorker);
         if (worker.getId() == null) {

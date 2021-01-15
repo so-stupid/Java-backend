@@ -2,8 +2,10 @@ package ru.rsatu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.rsatu.pojo.request.SavePriceRequest;
 import ru.rsatu.pojo.request.SaveWorkerRequest;
 import ru.rsatu.pojo.response.price.GetPriceList;
+import ru.rsatu.pojo.response.price.SavePriceResponse;
 import ru.rsatu.pojo.response.workers.GetTypeWorkerList;
 import ru.rsatu.pojo.response.workers.GetWorkersList;
 import ru.rsatu.pojo.response.workers.SaveWorkerResponse;
@@ -55,7 +57,7 @@ public class RestGate {
     public Response getWorkersList() {
         GetWorkersList result = null;
         try {
-            result = this.workerService.getWorkersList() ;
+            result = this.workerService.getWorkersList();
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
@@ -96,6 +98,23 @@ public class RestGate {
             logger.error(ex.getMessage());
         }
         return Response.ok(result).build();
+    }
+
+    /**
+     * Метод для сохранения услуги
+     */
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/savePrice")
+    public Response savePrice(SavePriceRequest savePriceRequest) {
+        SavePriceResponse result = null;
+        try {
+            result = this.priceService.savePrice(savePriceRequest);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+        return Response.ok().build();
     }
 
 
