@@ -3,9 +3,9 @@ package ru.rsatu.services;
 import ru.rsatu.pojo.TypeWorker;
 import ru.rsatu.pojo.Worker;
 import ru.rsatu.pojo.request.SaveWorkerRequest;
-import ru.rsatu.pojo.response.GetTypeWorkerList;
-import ru.rsatu.pojo.response.GetWorkersList;
-import ru.rsatu.pojo.response.SaveWorkerResponse;
+import ru.rsatu.pojo.response.workers.GetTypeWorkerList;
+import ru.rsatu.pojo.response.workers.GetWorkersList;
+import ru.rsatu.pojo.response.workers.SaveWorkerResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ public class WorkerService {
     EntityManager entityManager;
 
     /**
-     * Метод для сохранения студента
+     * Метод для сохранения работника
      */
     @Transactional
     public SaveWorkerResponse saveWorker(SaveWorkerRequest request) throws Exception {
@@ -56,7 +56,7 @@ public class WorkerService {
     }
 
     /**
-     * Получить список роботяг
+     * Получить список работников
      */
     public GetWorkersList getWorkersList() {
         GetWorkersList result = new GetWorkersList();

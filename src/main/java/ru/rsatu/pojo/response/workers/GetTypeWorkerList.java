@@ -1,4 +1,4 @@
-package ru.rsatu.pojo.response;
+package ru.rsatu.pojo.response.workers;
 
 import ru.rsatu.pojo.TypeWorker;
 
