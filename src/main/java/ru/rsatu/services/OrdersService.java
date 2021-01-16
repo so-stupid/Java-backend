@@ -19,6 +19,10 @@ public class OrdersService {
             "    join client on orders.client = client.id\n" +
             "    join workers  on orders.worker = workers.id\n";
 
+    public String getGetAllOrderByClient = "";
+
+    public String getGetGetAllOrderByWorker = "";
+
     @Inject
     EntityManager entityManager;
 
