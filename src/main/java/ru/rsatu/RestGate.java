@@ -14,6 +14,7 @@ import ru.rsatu.services.OrdersService;
 import ru.rsatu.services.WorkerService;
 import ru.rsatu.services.PriceService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -38,6 +39,7 @@ public class RestGate {
     /**
      * Метод для сохранения работника
      */
+    @RolesAllowed("admin")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -56,6 +58,7 @@ public class RestGate {
      * Метод для вывода всех работников
      */
     @GET
+    @RolesAllowed("user")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getWorkersList")
@@ -73,6 +76,7 @@ public class RestGate {
      * Метод для вывода всех профессий
      */
     @POST
+    @RolesAllowed("admin")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getTypeWorkerList")
@@ -109,6 +113,7 @@ public class RestGate {
      * Метод для сохранения услуги
      */
     @POST
+    @RolesAllowed("admin")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/savePrice")
@@ -128,6 +133,7 @@ public class RestGate {
      * Метод для вывода всех заказов
      */
     @GET
+    @RolesAllowed("user") //TODO пофиксить
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getAllOrders")
