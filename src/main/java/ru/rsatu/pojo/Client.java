@@ -1,6 +1,7 @@
 package ru.rsatu.pojo;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "client")
 public class Client {
@@ -20,9 +21,9 @@ public class Client {
     private Long phoneNumber;
     @Column
     private String address;
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "auto")
-    private Auto idAuto;
+    private List<Auto> idAuto;
 
     public Long getId() {
         return id;
@@ -64,11 +65,11 @@ public class Client {
         this.address = address;
     }
 
-    public Auto getIdAuto() {
+    public List<Auto> getIdAuto() {
         return idAuto;
     }
 
-    public void setIdAuto(Auto idAuto) {
+    public void setIdAuto(List<Auto> idAuto) {
         this.idAuto = idAuto;
     }
 }

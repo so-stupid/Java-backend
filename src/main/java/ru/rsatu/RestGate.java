@@ -4,11 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.rsatu.pojo.request.SavePriceRequest;
 import ru.rsatu.pojo.request.SaveWorkerRequest;
+import ru.rsatu.pojo.response.orders.GetOrdersList;
 import ru.rsatu.pojo.response.price.GetPriceList;
 import ru.rsatu.pojo.response.price.SavePriceResponse;
 import ru.rsatu.pojo.response.workers.GetTypeWorkerList;
 import ru.rsatu.pojo.response.workers.GetWorkersList;
 import ru.rsatu.pojo.response.workers.SaveWorkerResponse;
+import ru.rsatu.services.OrdersService;
 import ru.rsatu.services.WorkerService;
 import ru.rsatu.services.PriceService;
 
@@ -27,8 +29,11 @@ public class RestGate {
     @Inject
     PriceService priceService;
 
+    @Inject
+    OrdersService ordersService;
 
-//   ============= Методы для управления рабочими ===========
+
+    //   ============= Методы для управления рабочими ===========
 
     /**
      * Метод для сохранения работника
@@ -74,7 +79,7 @@ public class RestGate {
     public Response getTypeWorkerList() {
         GetTypeWorkerList result = null;
         try {
-            result = this.workerService.getTypeWorkerList() ;
+            result = this.workerService.getTypeWorkerList();
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
@@ -115,6 +120,25 @@ public class RestGate {
             logger.error(ex.getMessage());
         }
         return Response.ok().build();
+    }
+
+    //   ============= Методы для управления заказами ===========
+
+    /**
+     * Метод для вывода всех заказов
+     */
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAllOrders")
+    public Response getAllOrders() {
+        GetOrdersList result = null;
+        try {
+            result = this.ordersService.getOrdersList();
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+        return Response.ok(result).build();
     }
 
 

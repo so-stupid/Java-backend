@@ -60,7 +60,7 @@ public class WorkerService {
      */
     public GetWorkersList getWorkersList() {
         GetWorkersList result = new GetWorkersList();
-       Query query = entityManager.createQuery("select sg from workers sg");          //WHQL
+        Query query = entityManager.createQuery("select sg from workers sg");          //WHQL
 //        Query query = entityManager.createNativeQuery("select *" + "from workers");   //Native
         List<Worker> workersList = query.getResultList();
 

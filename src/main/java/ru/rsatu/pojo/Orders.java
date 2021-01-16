@@ -13,13 +13,13 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private Long id;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "auto")
     private Auto auto;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "client")
     private Client client;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "worker")
     private Worker worker;
     @Column
