@@ -10,7 +10,9 @@ public class Worker {
     @Column
     private Long id;
     @Column
-    private String fullName;
+    private String firstNameW;
+    @Column
+    private String lastNameW;
     @Column
     private Long phoneNumber;
     @Column
@@ -30,12 +32,20 @@ public class Worker {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstNameW() {
+        return firstNameW;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstNameW(String firstNameW) {
+        this.firstNameW = firstNameW;
+    }
+
+    public String getLastNameW() {
+        return lastNameW;
+    }
+
+    public void setLastNameW(String lastNameW) {
+        this.lastNameW = lastNameW;
     }
 
     public Long getPhoneNumber() {

@@ -58,7 +58,7 @@ public class RestGate {
      * Метод для вывода всех работников
      */
     @GET
-    @RolesAllowed("user")
+//    @RolesAllowed("user")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getWorkersList")
@@ -133,7 +133,7 @@ public class RestGate {
      * Метод для вывода всех заказов
      */
     @GET
-    @RolesAllowed("user") //TODO пофиксить
+//    @RolesAllowed("user") //TODO пофиксить
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getAllOrders")
@@ -146,6 +146,43 @@ public class RestGate {
         }
         return Response.ok(result).build();
     }
+
+    /**
+     * Метод для вывода всех заказов рабочего
+     */
+    @GET
+//    @RolesAllowed("user") //TODO пофиксить
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAllOrdersForWorker")
+    public Response getAllOrdersByWorker() {
+        GetOrdersList result = null;
+        try {
+            result = this.ordersService.getOrdersListForWorker();
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+        return Response.ok(result).build();
+    }
+
+    /**
+     * Метод для сохранения заказа
+     */
+    @RolesAllowed("admin")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/saveWorker")
+    public Response saveOrder(SaveWorkerRequest saveWorkerRequest) {
+        SaveWorkerResponse result = null;
+        try {
+            result = this.workerService.saveWorker(saveWorkerRequest);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+        return Response.ok().build();
+    }
+
 
 
 }
