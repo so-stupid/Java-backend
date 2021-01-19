@@ -1,14 +1,8 @@
 package ru.rsatu.services;
-
 import ru.rsatu.pojo.Price;
-import ru.rsatu.pojo.TypeWorker;
-import ru.rsatu.pojo.Worker;
 import ru.rsatu.pojo.request.SavePriceRequest;
-import ru.rsatu.pojo.request.SaveWorkerRequest;
 import ru.rsatu.pojo.response.price.GetPriceList;
 import ru.rsatu.pojo.response.price.SavePriceResponse;
-import ru.rsatu.pojo.response.workers.SaveWorkerResponse;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

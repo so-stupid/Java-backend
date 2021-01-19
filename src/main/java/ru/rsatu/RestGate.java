@@ -2,17 +2,17 @@ package ru.rsatu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.rsatu.pojo.request.SavePriceRequest;
-import ru.rsatu.pojo.request.SaveWorkerRequest;
+import ru.rsatu.pojo.request.*;
+import ru.rsatu.pojo.response.auto.SaveAutoResponse;
+import ru.rsatu.pojo.response.client.SaveClientResponse;
 import ru.rsatu.pojo.response.orders.GetOrdersList;
+import ru.rsatu.pojo.response.orders.SaveOrderResponse;
 import ru.rsatu.pojo.response.price.GetPriceList;
 import ru.rsatu.pojo.response.price.SavePriceResponse;
 import ru.rsatu.pojo.response.workers.GetTypeWorkerList;
 import ru.rsatu.pojo.response.workers.GetWorkersList;
 import ru.rsatu.pojo.response.workers.SaveWorkerResponse;
-import ru.rsatu.services.OrdersService;
-import ru.rsatu.services.WorkerService;
-import ru.rsatu.services.PriceService;
+import ru.rsatu.services.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -33,14 +33,20 @@ public class RestGate {
     @Inject
     OrdersService ordersService;
 
+    @Inject
+    ClientService clientService;
+
+    @Inject
+    AutoService autoService;
+
 
     //   ============= Методы для управления рабочими ===========
 
     /**
      * Метод для сохранения работника
      */
-    @RolesAllowed("admin")
     @POST
+    @RolesAllowed("admin")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/saveWorker")
@@ -58,7 +64,7 @@ public class RestGate {
      * Метод для вывода всех работников
      */
     @GET
-//    @RolesAllowed("user")
+    @RolesAllowed("user")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getWorkersList")
@@ -75,7 +81,7 @@ public class RestGate {
     /**
      * Метод для вывода всех профессий
      */
-    @POST
+    @GET
     @RolesAllowed("admin")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -133,7 +139,7 @@ public class RestGate {
      * Метод для вывода всех заказов
      */
     @GET
-//    @RolesAllowed("user") //TODO пофиксить
+    @RolesAllowed("admin")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getAllOrders")
@@ -148,41 +154,56 @@ public class RestGate {
     }
 
     /**
-     * Метод для вывода всех заказов рабочего
+     * Метод для сохранения клиента
      */
-    @GET
-//    @RolesAllowed("user") //TODO пофиксить
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/getAllOrdersForWorker")
-    public Response getAllOrdersByWorker() {
-        GetOrdersList result = null;
-        try {
-            result = this.ordersService.getOrdersListForWorker();
-        } catch (Exception ex) {
-            logger.error(ex.getMessage());
-        }
-        return Response.ok(result).build();
-    }
-
-    /**
-     * Метод для сохранения заказа
-     */
-    @RolesAllowed("admin")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/saveWorker")
-    public Response saveOrder(SaveWorkerRequest saveWorkerRequest) {
-        SaveWorkerResponse result = null;
+    @Path("/saveClient")
+    public Response saveClient(SaveClientRequest saveClientRequest) {
+        SaveClientResponse result = null;
         try {
-            result = this.workerService.saveWorker(saveWorkerRequest);
+            result = this.clientService.saveClient(saveClientRequest);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
         return Response.ok().build();
     }
 
+    /**
+     * Метод для сохранения автомобиля
+     */
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/saveAuto")
+    public Response saveAuto(SaveAutoRequest saveAutoRequest) {
+        SaveAutoResponse result = null;
+        try {
+            result = this.autoService.saveAuto(saveAutoRequest);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+        return Response.ok().build();
+    }
 
+    /**
+     * Метод для сохранения заказа
+     */
+    @RolesAllowed("user")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/saveOrder")
+    public Response saveOrder(SaveOrderRequest saveOrderRequest) {
+        SaveOrderResponse result = null;
+
+        try {
+            result = this.ordersService.saveOrder(saveOrderRequest);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+        return Response.ok().build();
+    }
 
 }

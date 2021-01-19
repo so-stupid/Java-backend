@@ -27,7 +27,7 @@ public class WorkerService {
         SaveWorkerResponse result = new SaveWorkerResponse();
         Worker worker = request.getWorker();
 
-        // Проверяем корректность группы
+        // Проверяем корректность профессии
         TypeWorker typeWorker = this.entityManager.find(TypeWorker.class, worker.getTypeWorker().getId());
         if (typeWorker == null) {
             throw new Exception("Prof is null");
@@ -38,6 +38,7 @@ public class WorkerService {
         } else {
             this.entityManager.merge(worker);
         }
+        result.setWorker(worker);
         this.entityManager.flush();
         return result;
     }

@@ -6,9 +6,6 @@ import java.time.Year;
 @Entity(name = "auto")
 public class Auto {
 
-    public Auto() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
@@ -24,7 +21,7 @@ public class Auto {
     @Column
     private String color;
     @Column
-    private Year yoc;
+    private Integer yoc;
 
     public Long getId() {
         return id;
@@ -74,12 +71,11 @@ public class Auto {
         this.color = color;
     }
 
-    public Year getYoc() {
+    public Integer getYoc() {
         return yoc;
     }
 
-    public void setYoc(Year yoc) {
+    public void setYoc(Integer yoc) {
         this.yoc = yoc;
     }
-
 }
